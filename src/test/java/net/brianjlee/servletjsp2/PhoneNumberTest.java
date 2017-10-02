@@ -18,7 +18,7 @@ public class PhoneNumberTest {
     public void PhoneNumberReturnsString() {
         try {
             PhoneNumber phone = new PhoneNumber("1111111111");
-            Assert.assertEquals(phone.getPhoneNumber(), "1111111111");
+            Assert.assertEquals(phone.getNumber(), "1111111111");
         } catch (InstantiationException e) {
             e.printStackTrace();
         }
@@ -28,7 +28,9 @@ public class PhoneNumberTest {
     public void PhoneNumberReturnsFormattedString() {
         try {
             PhoneNumber phone = new PhoneNumber("1111111111");
-            Assert.assertEquals(phone.getFormattedNumber(), "(111) 111-1111");
+            PhoneNumber phone2 = new PhoneNumber("1231231234");
+            Assert.assertEquals("(111) 111-1111", phone.getFormattedNumber());
+            Assert.assertEquals("(123) 123-1234", phone2.getFormattedNumber());
         } catch (InstantiationException e) {
             e.printStackTrace();
         }

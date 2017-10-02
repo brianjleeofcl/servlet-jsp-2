@@ -1,4 +1,4 @@
-import static javax.xml.bind.DatatypeConverter.parseInt
+import static java.lang.Integer.parseInt
 
 plugins {
     id 'java'
@@ -6,15 +6,15 @@ plugins {
     id 'org.akhikhl.gretty' version '1.4.2'
 }
 
-int port
+int systemPort
 try {
-    port = parseInt(System.getenv("PORT"))
+    systemPort = parseInt(System.getenv("PORT"))
 } catch(Exception e) {
-    port = 8080
+    systemPort = 8080
 }
 
 gretty {
-    port = port
+    port = systemPort
 }
 
 repositories {
@@ -24,5 +24,8 @@ repositories {
 dependencies {
     compile 'com.google.guava:guava:22.0'
     testCompile 'junit:junit:4.12'
+
+    compile 'org.hibernate:hibernate-entitymanager:5.2.10.Final'
+    compile 'org.postgresql:postgresql:42.1.4.jre7'
 }
 
