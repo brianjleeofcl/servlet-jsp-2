@@ -1,9 +1,6 @@
 package net.brianjlee.servletjsp2;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.List;
 
 public class DataAccessObject {
@@ -13,8 +10,14 @@ public class DataAccessObject {
     public User[] getUsers() {
         Query query = em.createQuery("from User");
 
-        List result = query.getResultList();
+        List<User> result = query.getResultList();
         User[] users = new User[result.size()];
-        return (User[]) result.toArray(users);
+        return result.toArray(users);
+    }
+
+    public User getUser(int id) {
+        TypedQuery<User> query = em.createQuery("from User where id = :id", User.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
     }
 }

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "userServlet", urlPatterns = { "users" }, loadOnStartup = 1)
+@WebServlet(name = "userServlet", urlPatterns = { "api-users" }, loadOnStartup = 1)
 public class UserServlet extends HttpServlet {
     private DataAccessObject data = new DataAccessObject();
 
@@ -22,7 +22,7 @@ public class UserServlet extends HttpServlet {
             String firstName = user.getFirstName();
             String lastName = user.getLastName();
             String phone = user.getFormattedPhoneNumber();
-            writer.printf("%d: %s %s – %s%n", id, firstName, lastName, phone);
+            writer.printf("%d: %s %s, tel: %s%n", id, firstName, lastName, phone);
         }
         writer.println();
     }

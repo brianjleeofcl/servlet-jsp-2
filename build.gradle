@@ -27,5 +27,7 @@ dependencies {
 
     compile 'org.hibernate:hibernate-entitymanager:5.2.10.Final'
     compile 'org.postgresql:postgresql:42.1.4.jre7'
+
+    compile 'javax.servlet:jstl:1.2'
 }
 
