@@ -21,15 +21,26 @@ public class User {
         this.id = id;
     }
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "first_name")
+    private String firstName;
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String name) {
+        this.firstName = name;
+    }
+
+    @Column(name = "last_name")
+    private String lastName;
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String name) {
+        this.lastName = name;
     }
 
     @Embedded
@@ -40,7 +51,8 @@ public class User {
     }
 
     public void setPhone(String phone) throws InstantiationException {
-        this.phone = new PhoneNumber(phone);
+        this.phone = new PhoneNumber();
+        this.phone.setNumber(phone);
     }
 
     public String getFormattedPhoneNumber() {

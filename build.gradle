@@ -6,15 +6,15 @@ plugins {
     id 'org.akhikhl.gretty' version '1.4.2'
 }
 
-int systemPort
+int port
 try {
-    systemPort = parseInt(System.getenv("PORT"))
+    port = parseInt(System.getenv("PORT"))
 } catch(Exception e) {
-    systemPort = 8080
+    port = 8080
 }
 
 gretty {
-    port = systemPort
+    port = port
 }
 
 repositories {
