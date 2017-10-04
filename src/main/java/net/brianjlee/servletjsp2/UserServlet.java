@@ -7,30 +7,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "userServlet", urlPatterns = { "users" }, loadOnStartup = 1)
+import static java.lang.Integer.parseInt;
+
+@WebServlet(name = "userServlet", urlPatterns = { "/users/*" })
 public class UserServlet extends HttpServlet {
     private DataAccessObject data = new DataAccessObject();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User[] users = data.getUsers();
-        req.setAttribute("users", users);
-        req.getRequestDispatcher("users.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String firstName = req.getParameter("firstName");
-        String lastName = req.getParameter("lastName");
-        String phone = req.getParameter("phone");
-
         try {
-            User user = data.insertUser(firstName, lastName, phone);
-
+            int id = parseInt(req.getPathInfo().substring(1));
+            User user = data.getUser(id);
             req.setAttribute("user", user);
-            req.getRequestDispatcher("user.jsp").forward(req, resp);
-        } catch (InstantiationException e) {
-            resp.setStatus(400);
+            req.getRequestDispatcher("/jsp/user.jsp").forward(req, resp);
+        } catch (NumberFormatException e) {
+            resp.setStatus(404);
         }
     }
 }

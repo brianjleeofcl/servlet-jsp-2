@@ -1,16 +1,14 @@
 package net.brianjlee.servletjsp2;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id
-    @Column(name = "id", columnDefinition = "serial")
-    @Generated(GenerationTime.INSERT)
+    @Column(name = "id", columnDefinition = "serial", updatable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
+    @SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
     private int id;
 
     public int getId() {

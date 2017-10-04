@@ -5,9 +5,9 @@ import java.util.List;
 
 public class DataAccessObject {
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("CRM");
-    private EntityManager em = emf.createEntityManager();
 
     public User[] getUsers() {
+        EntityManager em = emf.createEntityManager();
         Query query = em.createQuery("from User");
 
         List<User> result = query.getResultList();
@@ -16,13 +16,17 @@ public class DataAccessObject {
     }
 
     public User getUser(int id) {
+        EntityManager em = emf.createEntityManager();
         TypedQuery<User> query = em.createQuery("from User where id = :id", User.class);
         query.setParameter("id", id);
+
         return query.getSingleResult();
     }
 
     public User insertUser(String firstName, String lastName, String phone) throws InstantiationException {
+        EntityManager em = emf.createEntityManager();
         User user = new User();
+        em.getTransaction().begin();
         em.persist(user);
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -31,6 +35,7 @@ public class DataAccessObject {
         } catch (IllegalArgumentException e) {
             throw e;
         }
+        em.getTransaction().commit();
         return user;
     }
 }
