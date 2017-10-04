@@ -1,10 +1,25 @@
 package net.brianjlee.servletjsp2;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DataAccessObject {
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("CRM");
+
+    private String url = System.getenv("JDBC_DATABASE_URL");
+    {
+        if (url == null) {
+            url = "jdbc:postgresql://127.0.0.1:5432/testdb";
+        }
+    }
+
+    private Map<String, String> props = new HashMap<String, String>();
+    {
+        props.put("javax.persistence.jdbc.url", url);
+    }
+
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("user-persistence", props);
 
     public User[] getUsers() {
         EntityManager em = emf.createEntityManager();
