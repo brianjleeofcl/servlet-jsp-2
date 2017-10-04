@@ -20,4 +20,17 @@ public class DataAccessObject {
         query.setParameter("id", id);
         return query.getSingleResult();
     }
+
+    public User insertUser(String firstName, String lastName, String phone) throws InstantiationException {
+        User user = new User();
+        em.persist(user);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        try {
+            user.setPhone(phone);
+        } catch (IllegalArgumentException e) {
+            throw e;
+        }
+        return user;
+    }
 }

@@ -50,7 +50,7 @@ public class User {
         return phone;
     }
 
-    public void setPhone(String phone) throws InstantiationException {
+    public void setPhone(String phone) throws IllegalArgumentException {
         this.phone = new PhoneNumber();
         this.phone.setNumber(phone);
     }

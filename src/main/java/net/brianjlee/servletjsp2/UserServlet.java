@@ -6,29 +6,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-@WebServlet(name = "userServlet", urlPatterns = { "api-users" }, loadOnStartup = 1)
+@WebServlet(name = "userServlet", urlPatterns = { "users" }, loadOnStartup = 1)
 public class UserServlet extends HttpServlet {
     private DataAccessObject data = new DataAccessObject();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/plain");
-        PrintWriter writer = resp.getWriter();
         User[] users = data.getUsers();
-        for (User user: users) {
-            int id = user.getId();
-            String firstName = user.getFirstName();
-            String lastName = user.getLastName();
-            String phone = user.getFormattedPhoneNumber();
-            writer.printf("%d: %s %s, tel: %s%n", id, firstName, lastName, phone);
-        }
-        writer.println();
+        req.setAttribute("users", users);
+        req.getRequestDispatcher("users.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        String firstName = req.getParameter("firstName");
+        String lastName = req.getParameter("lastName");
+        String phone = req.getParameter("phone");
+
+        try {
+            User user = data.insertUser(firstName, lastName, phone);
+
+            req.setAttribute("user", user);
+            req.getRequestDispatcher("user.jsp").forward(req, resp);
+        } catch (InstantiationException e) {
+            resp.setStatus(400);
+        }
     }
 }

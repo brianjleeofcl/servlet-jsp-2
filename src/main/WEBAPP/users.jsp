@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="en">
@@ -12,13 +13,26 @@
     <body class="container">
         <h5>Users</h5>
         <ul>
-        <jsp:useBean id="userDB" class="net.brianjlee.servletjsp2.DataAccessObject" />
-        <c:set var="users" value="${userDB.users}" />
         <c:forEach var="user" items="${users}">
-            <li>${user.id}: ${user.firstName} ${user.lastName} - ${user.formattedPhoneNumber}</li>
+            <li>${user.id}: ${user.firstName} ${user.lastName} — ${user.formattedPhoneNumber}</li>
         </c:forEach>
         </ul>
-
-        <form></form>
+        <form method="post">
+            <div class="row">
+                <div class="three columns">
+                    <label for="first-name">First Name</label>
+                    <input class="u-full-width" type="text" name="firstName" id="first-name"/>
+                </div>
+                <div class="three columns">
+                    <label for="last-name">Last Name</label>
+                    <input class="u-full-width" type="text" name="lastName" id="last-name"/>
+                </div>
+                <div class="three columns">
+                    <label for="phone">Phone (###-###-####)</label>
+                    <input class="u-full-width" type="text" name="phone" id="phone"/>
+                </div>
+                <button type="submit" class="button-primary three columns">Submit</button>
+            </div>
+        </form>
     </body>
 </html>
