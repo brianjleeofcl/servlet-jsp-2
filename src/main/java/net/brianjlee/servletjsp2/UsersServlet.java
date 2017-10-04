@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "usersServlet", urlPatterns = { "users" }, loadOnStartup = 1)
+@WebServlet(name = "usersServlet", urlPatterns = { "/users" }, loadOnStartup = 1)
 public class UsersServlet extends HttpServlet {
     private DataAccessObject data = new DataAccessObject();
 
