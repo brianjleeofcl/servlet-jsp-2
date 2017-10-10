@@ -6,6 +6,10 @@ This application is an ongoing series of practice applications for Java based we
 The purpose of this application is to combine JSP and servlets with persistence on the server.
 The end goal is to familiarize with the technologies that frameworks such as Spring and Spring MVC is based on.
 
+## Development
+run `bash init.sh` to start the development server. 
+Application is available at `localhost:5000/users/`
+
 ## Dependencies
 
 - Java 8
