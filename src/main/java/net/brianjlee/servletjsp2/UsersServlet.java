@@ -27,8 +27,7 @@ public class UsersServlet extends HttpServlet {
         try {
             User user = data.insertUser(firstName, lastName, phone);
 
-            req.setAttribute("user", user);
-            req.getRequestDispatcher("/jsp/user.jsp").forward(req, resp);
+            resp.sendRedirect("/users/" + user.getId());
         } catch (InstantiationException e) {
             resp.setStatus(400);
         }
